@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express() // Vai armazenar toda a aplicação
 const routes = require('./routes')
+const { errors } = require('celebrate')
 
 app.use(cors()) // Vc define quem pode acessar o seu http
 
@@ -9,7 +10,11 @@ app.use(express.json()) // IMPORTANTE se for trabalhar com json vc precisa coloc
 
 app.use(routes)
 
-app.listen(3333)
+app.use(errors())
+
+module.exports = app
+
+// app.listen(3333)
 
 // Recurso esta associado a qual banco e rota o caminho a rota abaixo se refere a /
 

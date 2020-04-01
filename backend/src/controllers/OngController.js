@@ -1,4 +1,5 @@
-const crypto = require('crypto') // É um pacote do próprio Node
+//const crypto = require('crypto') // É um pacote do próprio Node
+const generateUniqueId = require('../utils/generateUniqueId')
 const connection = require('../database/connection') // Conexão com o banco de dados
 
 module.exports = {
@@ -33,7 +34,8 @@ module.exports = {
 
     // Ja que o id vamos cadastrar e não será incrementado auto pelo banco de dados estamos pegando um metodo da
     // biblioteca crypto do node para fazer este contador
-    const id = crypto.randomBytes(4).toString('HEX') 
+    const id = generateUniqueId()
+    //crypto.randomBytes(4).toString('HEX') - trocado pelo jes para teste
        
         await connection('ongs').insert({ // Ja que esta função demora e vc precisa esperar ela acabar para executar o próximo passo será usado o async/await
             id,
@@ -41,7 +43,7 @@ module.exports = {
             email,
             whatsapp,
             city,
-            uf,
+            uf
         })
     
         return response.json({id}) // Ele vai retornar o id do cadastro que é como se fosse o cpf da aplicacao com ele vc pode fazer tudo
